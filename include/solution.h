@@ -26,6 +26,10 @@ class Solution {
     ~Solution() {};
 
     std::vector<Element> getSolution();
+    void addElementToSolution(Element newElement);
+    double calculateObjectiveFunction();
+    int size();
+    void print();
     
   private:
     std::vector<Element> solution_;

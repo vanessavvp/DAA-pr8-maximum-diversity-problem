@@ -25,8 +25,9 @@ class Element {
 
   std::vector<double> getCoordinates();
   int getDimensionK();
+  double getCoordinate(int index);
 
-  void addCoordinate(int newCoordinate);
+  void addCoordinate(double newCoordinate);
   void print();
 
   double& operator[](int index);

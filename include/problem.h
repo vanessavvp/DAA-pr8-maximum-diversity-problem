@@ -19,6 +19,7 @@
 #include <cstring>
 #include <iomanip>
 #include <locale>
+#include <cmath>
 
 #include "./element.h"
 #include "./solution.h"
@@ -35,9 +36,14 @@ class Problem {
     int getNumberOfElementsN();
     int getDimensionK();
     std::vector<Element> getInitialX();
+    void setAlgorithm(Algorithm* algorithm);
+
+    double getEuclideanDistance(Element first, Element second);
+    void execute(int solutionSizeM);
 
     void readFile(std::string& inputFileName);
     void printInitialX();
+    void printSolution();
 
   private:
     int numberOfElementsN_;

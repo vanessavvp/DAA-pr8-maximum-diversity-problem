@@ -28,18 +28,18 @@ int Element::getDimensionK() {
 }
 
 
-void Element::addCoordinate(int newCoordinate) {
-  if (coordinates_.size() <= dimensionK_) {
+void Element::addCoordinate(double newCoordinate) {
+  if (coordinates_.size() < dimensionK_) {
     coordinates_.push_back(newCoordinate);
   } 
   else {
-    std::cerr << "ERROR: Element - There is no possible to add another coordinate because of the dimension of the element" << std::endl;
+    std::cerr << "ERROR: Class Element - There is no possible to add another coordinate because of the k-dimension" << std::endl;
   }
 }
 
 
 void Element::print() {
-  for (int i = 0; i < coordinates_.size(); i++) {
+  for (int i = 0; i < dimensionK_; i++) {
     std::cout << coordinates_[i];
     if (i < (coordinates_.size() - 1)) {
       std::cout << ", ";
@@ -53,5 +53,10 @@ double& Element::operator[](int index) {
     std::cerr << "ERROR: Class Element - The required element index is greater than the k-dimension" << std::endl;
     exit(1);
   }
+  return coordinates_[index];
+}
+
+
+double Element::getCoordinate(int index) {
   return coordinates_[index];
 }

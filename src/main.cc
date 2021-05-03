@@ -23,8 +23,9 @@ int main(int argc, char* argv[]) {
   problem.printInitialX();
 
   // ---------------------------- First week assignment ----------------------------------------- //
-  /*Greedy* greedy = new Greedy;
+  int solutionSizeM = 3;
+  Greedy* greedy = new Greedy;
   problem.setAlgorithm(greedy);
-  problem.execute();
-  problem.printSolution();*/
+  problem.execute(solutionSizeM);
+  problem.printSolution();
 }

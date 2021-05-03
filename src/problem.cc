@@ -80,3 +80,31 @@ int Problem::getDimensionK() {
 std::vector<Element> Problem::getInitialX() {
   return initialX_;
 }
+
+
+/**
+ * Returns the calculus of the euclidean distance between two given elements
+ **/
+double Problem::getEuclideanDistance(Element first, Element second) {
+  double distance = 0;
+  for (int i = 0; i < dimensionK_; i++) {
+    distance += (pow((first[i] - second[i]), 2));
+  }
+  distance = sqrt(distance);
+  return distance;
+}
+
+
+void Problem::setAlgorithm(Algorithm* algorithm) {
+  algorithm_ = algorithm;
+}
+
+
+void Problem::execute(int solutionSizeM) {
+  solution_ = algorithm_->execute(*this, solutionSizeM);
+}
+
+
+void Problem::printSolution() {
+  solution_.print();
+}

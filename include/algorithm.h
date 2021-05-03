@@ -13,8 +13,10 @@
 #define ALGORITHM_H
 
 #include <iostream>
+#include <utility>
 
 #include "./solution.h"
+#include "./element.h"
 
 #pragma once
 
@@ -22,7 +24,8 @@ class Problem;
 class Algorithm {
   public:
     virtual ~Algorithm() = default;
-    virtual Solution execute(Problem problem) = 0;
+    virtual Solution execute(Problem problem, int solutionSizeM) = 0;
+    Element calculateGravityCenter(std::vector<Element> elements);
 };
 
 #endif // !ALGORITHM_H
