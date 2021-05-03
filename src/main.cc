@@ -33,9 +33,13 @@ int main(int argc, char* argv[]) {
   // Solution to be used in the local search
   Solution actualSolution = problem.getSolution();
   InterChange interChange;
+  auto begin = std::chrono::system_clock::now();
   Solution final = interChange.execute(actualSolution, problem.getInitialX());
+  auto end = std::chrono::system_clock::now();
+  auto totalTime = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
   std::cout << "\nLocalSearch: \n";
   final.print();
+  std::cout << "Program execution time: " << std::to_string(totalTime.count() * 1e-9) + " seconds\n";
 
   // Generating output file with results for GREEDY
   std::vector<std::string> problemFiles {"input/max_div_15_2.txt", 
@@ -76,7 +80,6 @@ int main(int argc, char* argv[]) {
       auto begin = std::chrono::system_clock::now();
       Solution finalSolution = interChange2.execute(currentSolution, aux2.getInitialX());
       auto end = std::chrono::system_clock::now();
-      finalSolution.print();
       auto totalTime = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
       std::string cpuTime = std::to_string(totalTime.count() * 1e-9) + " seconds\n";
       outputFile2 << problemFiles[i] << ", " << aux2.getNumberOfElementsN() << ", "; 
