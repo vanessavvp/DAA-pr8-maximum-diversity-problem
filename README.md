@@ -1,1 +1,1 @@
-# DAA-pr8-maximum-diversity-problem
+# Práctica 8: Entrega 1 - Maximum Diversity Problem
