@@ -10,6 +10,7 @@
  */
 
 #include "../include/solution.h"
+#include "../include/formulas.h"
 
 int Solution::size() {
   return solution_.size();
@@ -22,10 +23,21 @@ void Solution::addElementToSolution(Element newElement) {
 
 
 void Solution::print() {
-  std::cout << "\n\nFinal solution: \n";
-  for (int i = 0; i < size(); i++) {
+  std::cout << "Final solution: \n";
+  for (int i = 0; i < solution_.size(); i++) {
     solution_[i].print();
     std::cout << " ";
   }
   std::cout << std::endl;
+}
+
+
+double Solution::calculateObjectiveFunction() {
+  z_ = 0;
+  for (int i = 0; i < solution_.size(); i++) {
+    for (int j = i + 1; j < solution_.size(); j++) {
+      z_ += calculateEuclideanDistance(solution_[i], solution_[j]);
+    }
+  }
+  return z_;
 }

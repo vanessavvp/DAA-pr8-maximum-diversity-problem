@@ -39,7 +39,6 @@ Solution Greedy::execute(Problem problem, int solutionSizeM) {
     // --------------------- trace
     std::cout << "\nfarthest: "; initialElements[farthestElement.first].print();
 
-
     // Adds the farthest element to the solution
     solutionS.addElementToSolution(initialElements[farthestElement.first]);
 
@@ -50,7 +49,9 @@ Solution Greedy::execute(Problem problem, int solutionSizeM) {
     // Obtain the gravity center within the parcial solution
     gravityCenter = calculateGravityCenter(initialElements);
   } while(solutionS.size() != solutionSizeM);
+
   // TODO: Calculate the objective function
-  // solutionS.calculateObjectiveFunction();
+  double z = solutionS.calculateObjectiveFunction();
+  std::cout << "\n\nz: " << z << std::endl;
   return solutionS;  
 }

@@ -30,6 +30,7 @@
 class Algorithm;
 class Problem {
   public:
+    Problem(){};
     Problem(std::string& inputFileName);
     ~Problem() {};
 

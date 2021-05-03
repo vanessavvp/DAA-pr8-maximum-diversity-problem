@@ -35,6 +35,7 @@ class Solution {
     std::vector<Element> solution_;
     int dimensionK_;
     int numberOfElementsN_;
+    double z_;
 };
 
 #endif // !SOLUTION_H
