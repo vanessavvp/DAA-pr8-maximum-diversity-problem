@@ -10,7 +10,7 @@
  */
 
 #include "../include/solution.h"
-#include "../include/formulas.h"
+
 
 int Solution::size() {
   return solution_.size();
@@ -40,4 +40,28 @@ double Solution::calculateObjectiveFunction() {
     }
   }
   return z_;
+}
+
+
+std::vector<Element> Solution::getSolution() const {
+  return solution_;
+}
+
+
+double Solution::getZ() const {
+  return z_;
+}
+
+
+bool Solution::operator ==(const Solution& solution) {
+  if ((solution.getSolution() == solution_) && (solution.getZ() == getZ())) {
+    return true;
+  }
+  return false;
+}
+
+
+bool Solution::operator!=(const Solution& solution) {
+  Solution solutionCopy = solution;
+  return !(solutionCopy == *this);
 }

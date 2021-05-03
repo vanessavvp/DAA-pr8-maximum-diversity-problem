@@ -1,6 +1,6 @@
-OBJECTS = main.o problem.o element.o greedy.o solution.o GRASP.o localSearch.o interChange.o algorithm.o
+OBJECTS = main.o problem.o element.o greedy.o solution.o GRASP.o localSearch.o interChange.o algorithm.o formulas.o
 CFLAGS = -c -O3 -std=c++17 -I../include
-SRC = src/main.cc src/problem.cc src/element.cc src/greedy.cc src/solution.cc src/GRASP.cc src/localSearch.cc src/interChange.cc src/algorithm.cc
+SRC = src/main.cc src/problem.cc src/element.cc src/greedy.cc src/solution.cc src/GRASP.cc src/localSearch.cc src/interChange.cc src/algorithm.cc src/formulas.cc
 
 exe: $(OBJECTS)
 	g++ $(SRC) -o exe
@@ -31,7 +31,10 @@ interChange.o:
 	g++ $(CFLAGS) ./src/interChange.cc
 
 algorithm.o:
-	g++ $(CFLAGS) ./src/interChange.cc
+	g++ $(CFLAGS) ./src/algorithm.cc
+
+formulas.o:
+	g++ $(CFLAGS) ./src/formulas.cc
 
 
 .PHONY: 

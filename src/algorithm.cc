@@ -12,10 +12,12 @@
 #include "../include/algorithm.h"
 
 Element Algorithm::calculateGravityCenter(std::vector<Element> elements) {
-  double result = 0;
+  double result = 0.0;
   Element newElement(elements[0].getDimensionK());
+  // Each coordinate of the element (k-dimension)
   for (int i = 0; i < elements[0].getDimensionK(); i++) {
-    result = 0;
+    result = 0.0;
+    // Sum of all elements for the same coordinate
     for (int j = 0; j < elements.size(); j++) {
       result += elements[j].getCoordinate(i);
     }

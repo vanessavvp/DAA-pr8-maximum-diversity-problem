@@ -23,14 +23,15 @@ class Element {
   Element(int dimensionK);
   ~Element() {};
 
-  std::vector<double> getCoordinates();
-  int getDimensionK();
+  std::vector<double> getCoordinates() const;
+  int getDimensionK() const;
   double getCoordinate(int index);
 
   void addCoordinate(double newCoordinate);
   void print();
 
   double& operator[](int index);
+  bool operator==(const Element& element) const;
 
  private:
   std::vector<double> coordinates_;

@@ -27,7 +27,9 @@ Solution Greedy::execute(Problem problem, int solutionSizeM) {
 
     // Finds the farthest element
     for (int i = 0; i < initialElements.size(); i++) {
-      float distance = problem.getEuclideanDistance(gravityCenter, initialElements[i]);
+      //float distance = problem.getEuclideanDistance(gravityCenter, initialElements[i]);
+      float distance = calculateEuclideanDistance(gravityCenter, initialElements[i]);
+
       // --------------------- trace
       std::cout << "\ncurrent: "; initialElements[i].print();
       std::cout << " dist: " << distance;
@@ -47,10 +49,9 @@ Solution Greedy::execute(Problem problem, int solutionSizeM) {
     initialElements.erase(it);
 
     // Obtain the gravity center within the parcial solution
-    gravityCenter = calculateGravityCenter(initialElements);
+    gravityCenter = calculateGravityCenter(solutionS.getSolution());
   } while(solutionS.size() != solutionSizeM);
 
-  // TODO: Calculate the objective function
   double z = solutionS.calculateObjectiveFunction();
   std::cout << "\n\nz: " << z << std::endl;
   return solutionS;  

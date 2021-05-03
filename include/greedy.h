@@ -16,12 +16,14 @@
 
 #include "./algorithm.h"
 #include "./problem.h"
+#include "./formulas.h"
+#include "./localSearch.h"
 
 #pragma once
 
 class Greedy : public Algorithm {
   public: 
-    Greedy() {}
+    Greedy() {};
     ~Greedy() {}
     Solution execute(Problem problem, int solutionSizeM);
 };

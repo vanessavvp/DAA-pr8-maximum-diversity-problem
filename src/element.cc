@@ -18,12 +18,12 @@ Element::Element(int dimensionK) {
 }
 
 
-std::vector<double> Element::getCoordinates() {
+std::vector<double> Element::getCoordinates() const {
   return coordinates_;
 }
 
 
-int Element::getDimensionK() {
+int Element::getDimensionK() const {
   return dimensionK_;
 }
 
@@ -39,12 +39,14 @@ void Element::addCoordinate(double newCoordinate) {
 
 
 void Element::print() {
+  std::cout << "(";
   for (int i = 0; i < dimensionK_; i++) {
     std::cout << coordinates_[i];
     if (i < (coordinates_.size() - 1)) {
       std::cout << ", ";
     }
   }
+  std::cout << ")";
 }
 
 
@@ -59,4 +61,12 @@ double& Element::operator[](int index) {
 
 double Element::getCoordinate(int index) {
   return coordinates_[index];
+}
+
+
+bool Element::operator==(const Element& element) const {
+  if ((element.getDimensionK() == getDimensionK()) && (element.getCoordinates() == getCoordinates())){
+    return true;
+  }
+  return false;
 }

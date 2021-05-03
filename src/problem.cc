@@ -108,3 +108,8 @@ void Problem::execute(int solutionSizeM) {
 void Problem::printSolution() {
   solution_.print();
 }
+
+
+Solution Problem::getSolution() {
+  return solution_;
+}

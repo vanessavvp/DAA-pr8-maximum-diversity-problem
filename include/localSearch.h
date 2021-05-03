@@ -12,6 +12,8 @@
 #ifndef LOCAL_SEARCH_H
 #define LOCAL_SEARCH_H
 
+#include <algorithm>
+
 #include "./solution.h"
 
 #pragma once
@@ -19,8 +21,8 @@
 class LocalSearch {
   public:
     ~LocalSearch() = default;
-    Solution execute(Solution& generatedSolution);
-    virtual std::vector<Solution> generateNeighbours(Solution generatedSolution) = 0;
+    Solution execute(Solution& generatedSolution, std::vector<Element> initialX);
+    virtual std::vector<Solution> generateNeighbours(Solution generatedSolution, std::vector<Element> initialX) = 0;
 };
 
 #endif // !LOCAL_SEARCH_H

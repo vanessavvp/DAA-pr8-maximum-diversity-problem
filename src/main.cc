@@ -27,5 +27,11 @@ int main(int argc, char* argv[]) {
   Greedy* greedy = new Greedy;
   problem.setAlgorithm(greedy);
   problem.execute(solutionSizeM);
-  problem.printSolution();
+  // problem.printSolution();
+
+  // Solution to be used in the local search
+  Solution actualSolution = problem.getSolution();
+  // InterChange* interChange = new InterChange;
+  InterChange interChange;
+  interChange.execute(actualSolution, problem.getInitialX());
 }

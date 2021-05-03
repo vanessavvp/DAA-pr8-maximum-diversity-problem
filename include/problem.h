@@ -37,6 +37,7 @@ class Problem {
     int getNumberOfElementsN();
     int getDimensionK();
     std::vector<Element> getInitialX();
+    Solution getSolution();
     void setAlgorithm(Algorithm* algorithm);
 
     double getEuclideanDistance(Element first, Element second);

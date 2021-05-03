@@ -21,7 +21,7 @@ class InterChange : public LocalSearch {
   public:
     InterChange() {}
     ~InterChange() {}
-    std::vector<Solution> generateNeighbours(Solution generatedSolution);
+    std::vector<Solution> generateNeighbours(Solution generatedSolution, std::vector<Element> initialX);
 };
 
 #endif // !INTER_CHANGE_H

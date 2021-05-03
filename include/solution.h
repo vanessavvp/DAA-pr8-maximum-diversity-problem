@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "./element.h"
+#include "./formulas.h"
 
 #pragma once
 
@@ -25,11 +26,14 @@ class Solution {
     Solution(int dimensionK, int numberOfElementsN);
     ~Solution() {};
 
-    std::vector<Element> getSolution();
+    std::vector<Element> getSolution() const;
     void addElementToSolution(Element newElement);
     double calculateObjectiveFunction();
+    double getZ() const;
     int size();
     void print();
+    bool operator ==(const Solution& solution);
+    bool operator!=(const Solution& solution);
     
   private:
     std::vector<Element> solution_;
