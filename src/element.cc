@@ -38,12 +38,25 @@ void Element::addCoordinate(double newCoordinate) {
 }
 
 
+std::string Element::printFile() {
+  std::string string = "(";
+  for (int i = 0; i < dimensionK_; i++) {
+    string.append(std::to_string(coordinates_[i])); 
+    if (i < (coordinates_.size() - 1)) {
+      string.append("  ");
+    }
+  }
+  string.append(")");
+  return string;
+}
+
+
 void Element::print() {
   std::cout << "(";
   for (int i = 0; i < dimensionK_; i++) {
     std::cout << coordinates_[i];
     if (i < (coordinates_.size() - 1)) {
-      std::cout << ", ";
+      std::cout << "  ";
     }
   }
   std::cout << ")";

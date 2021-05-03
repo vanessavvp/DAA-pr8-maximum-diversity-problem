@@ -46,4 +46,4 @@ clean:
 	rm -rf ./obj/*.o
 
 run:
-	./exe input/max_div_15_3.txt
+	./exe input/max_div_15_2.txt

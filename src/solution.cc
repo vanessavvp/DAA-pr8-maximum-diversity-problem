@@ -22,6 +22,15 @@ void Solution::addElementToSolution(Element newElement) {
 }
 
 
+std::string Solution::printFile() {
+  std::string string;
+  for (int i = 0; i < solution_.size(); i++) {
+    string.append(solution_[i].printFile() + " ");
+  }
+  return string;
+}
+
+
 void Solution::print() {
   for (int i = 0; i < solution_.size(); i++) {
     solution_[i].print();

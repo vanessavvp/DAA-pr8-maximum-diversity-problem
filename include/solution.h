@@ -31,6 +31,7 @@ class Solution {
     double calculateObjectiveFunction();
     double getZ() const;
     int size();
+    std::string printFile();
     void print();
     bool operator ==(const Solution& solution);
     bool operator!=(const Solution& solution);

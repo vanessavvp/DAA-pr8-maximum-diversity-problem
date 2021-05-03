@@ -28,8 +28,8 @@ class Element {
   double getCoordinate(int index);
 
   void addCoordinate(double newCoordinate);
+  std::string printFile();
   void print();
-
   double& operator[](int index);
   bool operator==(const Element& element) const;
 
