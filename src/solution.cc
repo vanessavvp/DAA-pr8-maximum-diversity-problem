@@ -23,12 +23,13 @@ void Solution::addElementToSolution(Element newElement) {
 
 
 void Solution::print() {
-  std::cout << "Final solution: \n";
+  std::cout << "\nFinal solution: \n";
   for (int i = 0; i < solution_.size(); i++) {
     solution_[i].print();
     std::cout << " ";
   }
   std::cout << std::endl;
+  std::cout << "z: " << getZ() << std::endl;
 }
 
 
@@ -64,4 +65,13 @@ bool Solution::operator ==(const Solution& solution) {
 bool Solution::operator!=(const Solution& solution) {
   Solution solutionCopy = solution;
   return !(solutionCopy == *this);
+}
+
+
+Element& Solution::operator[](int index) {
+  if (index >= solution_.size()) {
+    std::cerr << "\nERROR: Class Solution - Required index greater than the number of elements within the solution\n";
+    exit(1);
+  }
+  return solution_[index];
 }

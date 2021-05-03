@@ -33,5 +33,6 @@ int main(int argc, char* argv[]) {
   Solution actualSolution = problem.getSolution();
   // InterChange* interChange = new InterChange;
   InterChange interChange;
-  interChange.execute(actualSolution, problem.getInitialX());
+  Solution final = interChange.execute(actualSolution, problem.getInitialX());
+  final.print();
 }

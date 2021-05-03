@@ -34,6 +34,7 @@ class Solution {
     void print();
     bool operator ==(const Solution& solution);
     bool operator!=(const Solution& solution);
+    Element& operator[](int index);
     
   private:
     std::vector<Element> solution_;

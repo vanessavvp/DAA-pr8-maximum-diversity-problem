@@ -23,5 +23,6 @@ Solution LocalSearch::execute(Solution& generatedSolution, std::vector<Element> 
       }
     }
   } while (bestSolution != actualSolution);
+  // bestSolution.calculateObjectiveFunction();
   return bestSolution;
-}
+} 

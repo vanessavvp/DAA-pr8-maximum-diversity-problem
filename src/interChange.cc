@@ -17,7 +17,6 @@
  **/
 std::vector<Solution> InterChange::generateNeighbours(Solution generatedSolution, std::vector<Element> initialX) {
   std::vector<Solution> result;
-  Solution actualSolution;
 
   // Delete every element of the generated solution that are inside the initial set of elements
   std::vector<Element> solutionElements = generatedSolution.getSolution();
@@ -32,6 +31,17 @@ std::vector<Solution> InterChange::generateNeighbours(Solution generatedSolution
   }
 
   // InterChange
+  Solution actualSolution;
+  std::vector<Element> auxInitial = initialX;
+  for (int i = 0; i < initialX.size(); i++) {
+    for (int j = 0; j < solutionElements.size(); j++) {
+      actualSolution = generatedSolution;
+      Element tempElement = actualSolution[j];
+      actualSolution[j] = auxInitial[i];
+      actualSolution.calculateObjectiveFunction();
+      result.push_back(actualSolution);
+    }
+  }
 
   return result;
 }
