@@ -16,11 +16,6 @@ Solution Greedy::execute(Problem problem, int solutionSizeM) {
   Solution solutionS;
   Element gravityCenter = calculateGravityCenter(initialElements);
   do {
-    // --------------------- trace
-    std::cout << "\n------------\n";
-    std::cout << "\nGravity center: \n"; gravityCenter.print();
-    std::cout << std::endl;
-
     std::pair<int, double> farthestElement;
     farthestElement.first  = 0;   // Position in initial elements
     farthestElement.second = 0.0; // Euclidean distance
@@ -29,18 +24,11 @@ Solution Greedy::execute(Problem problem, int solutionSizeM) {
     for (int i = 0; i < initialElements.size(); i++) {
       //float distance = problem.getEuclideanDistance(gravityCenter, initialElements[i]);
       float distance = calculateEuclideanDistance(gravityCenter, initialElements[i]);
-
-      // --------------------- trace
-      std::cout << "\ncurrent: "; initialElements[i].print();
-      std::cout << " dist: " << distance;
       if (distance > farthestElement.second) {
         farthestElement.first  = i;
         farthestElement.second = distance;
       }
     }
-    // --------------------- trace
-    std::cout << "\nfarthest: "; initialElements[farthestElement.first].print();
-
     // Adds the farthest element to the solution
     solutionS.addElementToSolution(initialElements[farthestElement.first]);
 
@@ -53,6 +41,5 @@ Solution Greedy::execute(Problem problem, int solutionSizeM) {
   } while(solutionS.size() != solutionSizeM);
 
   double z = solutionS.calculateObjectiveFunction();
-  std::cout << "\n\nz: " << z << std::endl;
   return solutionS;  
 }

@@ -23,7 +23,6 @@ void Solution::addElementToSolution(Element newElement) {
 
 
 void Solution::print() {
-  std::cout << "\nFinal solution: \n";
   for (int i = 0; i < solution_.size(); i++) {
     solution_[i].print();
     std::cout << " ";

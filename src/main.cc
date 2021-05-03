@@ -20,19 +20,20 @@ int main(int argc, char* argv[]) {
   std::cout << "\n\tMAXIMUM DIVERSITY PROBLEM\n";
   std::string fileName = argv[1];
   Problem problem(fileName);
-  problem.printInitialX();
 
   // ---------------------------- First week assignment ----------------------------------------- //
   int solutionSizeM = 3;
   Greedy* greedy = new Greedy;
   problem.setAlgorithm(greedy);
   problem.execute(solutionSizeM);
-  // problem.printSolution();
+  std::cout << "Greedy: \n";
+  problem.printSolution();
 
   // Solution to be used in the local search
   Solution actualSolution = problem.getSolution();
   // InterChange* interChange = new InterChange;
   InterChange interChange;
   Solution final = interChange.execute(actualSolution, problem.getInitialX());
+  std::cout << "\nLocalSearch: \n";
   final.print();
 }

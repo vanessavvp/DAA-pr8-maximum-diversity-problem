@@ -27,10 +27,11 @@ void Problem::readFile(std::string& inputFileName) {
 
     // Number of elements
     getline(file, lineInfo);
+  
     std::istringstream elements(lineInfo);
     while (elements >> lineInfo);
     numberOfElementsN_ = std::stoi(lineInfo);
-    std::cout << "Number of elements n: " << numberOfElementsN_ << std::endl;
+    // std::cout << "Number of elements n: " << numberOfElementsN_ << std::endl;
     initialX_.resize(numberOfElementsN_);
 
     // K-dimension
@@ -38,7 +39,7 @@ void Problem::readFile(std::string& inputFileName) {
     std::istringstream dimension(lineInfo);
     while (dimension >> lineInfo);
     dimensionK_ = std::stoi(lineInfo);
-    std::cout << "K-dimension: " << dimensionK_ << std::endl;
+    // std::cout << "K-dimension: " << dimensionK_ << std::endl;
 
     // Set of initial elements
     int count = 0;
