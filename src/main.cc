@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
   // Generating output file with results for GRASP 
   std::ofstream outputFile3;
   outputFile3.open("grasp-results.csv");
-  outputFile3 << "Problema, n, K, m, Iter, |LRC|, z, stop criteria, S, CPU" << std::endl;
+  outputFile3 << "Problema, n, K, m, Iter, |LRC|, stop criteria, z, S, CPU" << std::endl;
 
   
   for (int i = 0; i < problemFiles.size(); i++) {
@@ -126,10 +126,9 @@ int main(int argc, char* argv[]) {
             std::string cpuTime = executeAndMeasureAlgorithms(thirdProblem, secondGRASP, m);
             outputFile3 << problemFiles[i] << ", " << thirdProblem.getNumberOfElementsN() << ", "; 
             outputFile3 << thirdProblem.getDimensionK() << ", " << m << ", " << secondGRASP->getIterations();
-            outputFile3 << ", " << secondGRASP->getK() << ", " << thirdProblem.getSolution().getZ() << ", ";
-            outputFile3 << std::boolalpha << secondGRASP->getStopCriteria() << ", " << thirdProblem.getSolution().printFile();
+            outputFile3 << ", " << secondGRASP->getK() << ", " <<  std::boolalpha << secondGRASP->getStopCriteria();
+            outputFile3 << ", " <<thirdProblem.getSolution().getZ() << ", "<< thirdProblem.getSolution().printFile();
             outputFile3 << ", " << cpuTime << std::endl;
-            // outputFile3 << std::endl;
           }
         }
       }
