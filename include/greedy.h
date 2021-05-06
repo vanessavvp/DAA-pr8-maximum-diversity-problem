@@ -1,6 +1,6 @@
 /**
  * PROJECT HEADER
- * @file firstGreedy.h
+ * @file greedy.h
  * @author: Vanessa Valentina Villalba Perez
  * Contact: alu0101265704@ull.edu.es
  * @date: 02/05/2021

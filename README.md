@@ -1,1 +1,1 @@
-# Práctica 8: Entrega 1 - Maximum Diversity Problem
+# Práctica 8: Entrega 2 - Maximum Diversity Problem

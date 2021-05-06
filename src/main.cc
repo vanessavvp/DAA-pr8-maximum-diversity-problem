@@ -22,7 +22,16 @@ int main(int argc, char* argv[]) {
   std::string fileName = argv[1];
   Problem problem(fileName);
 
-  // ---------------------------- First week assignment ----------------------------------------- //
+  int solutionSizeM = 3;
+  GRASP* grasp = new GRASP;
+  std::cout << "GRASP: \n";
+  srand(time(NULL));
+  grasp->setK(2);
+  std::string time = executeAndMeasureAlgorithms(problem, grasp, solutionSizeM);
+  problem.printSolution();
+  std::cout << "Program execution time: " << time;
+
+  /*// ---------------------------- First week assignment ----------------------------------------- //
   int solutionSizeM = 2;
   Greedy* greedy = new Greedy;
   std::cout << "Greedy: \n";
@@ -86,7 +95,7 @@ int main(int argc, char* argv[]) {
       outputFile2 << aux2.getDimensionK() << ", " << m << ", " << finalSolution.getZ();
       outputFile2 << ", " << finalSolution.printFile() << ", " << cpuTime << std::endl;
     }
-  }
+  }*/
 }
 
 

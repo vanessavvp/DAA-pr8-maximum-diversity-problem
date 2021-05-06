@@ -22,7 +22,6 @@ Solution Greedy::execute(Problem problem, int solutionSizeM) {
 
     // Finds the farthest element
     for (int i = 0; i < initialElements.size(); i++) {
-      //float distance = problem.getEuclideanDistance(gravityCenter, initialElements[i]);
       float distance = calculateEuclideanDistance(gravityCenter, initialElements[i]);
       if (distance > farthestElement.second) {
         farthestElement.first  = i;
