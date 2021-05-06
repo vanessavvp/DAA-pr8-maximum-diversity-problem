@@ -16,28 +16,21 @@
 
 #include <chrono>
 
+
 std::string executeAndMeasureAlgorithms(Problem& problem, Algorithm* algorithm, int m);
+
 int main(int argc, char* argv[]) {
   std::cout << "\n\tMAXIMUM DIVERSITY PROBLEM\n";
   std::string fileName = argv[1];
   Problem problem(fileName);
 
-  int solutionSizeM = 3;
-  GRASP* grasp = new GRASP;
-  std::cout << "GRASP: \n";
-  srand(time(NULL));
-  grasp->setK(2);
-  std::string time = executeAndMeasureAlgorithms(problem, grasp, solutionSizeM);
-  problem.printSolution();
-  std::cout << "Program execution time: " << time;
-
-  /*// ---------------------------- First week assignment ----------------------------------------- //
+  // ---------------------------- First week assignment ----------------------------------------- //
   int solutionSizeM = 2;
   Greedy* greedy = new Greedy;
   std::cout << "Greedy: \n";
-  std::string time = executeAndMeasureAlgorithms(problem, greedy, solutionSizeM);
+  std::string executionTime = executeAndMeasureAlgorithms(problem, greedy, solutionSizeM);
   problem.printSolution();
-  std::cout << "Program execution time: " << time;
+  std::cout << "Program execution time: " << executionTime;
 
   // Solution to be used in the local search
   Solution actualSolution = problem.getSolution();
@@ -50,7 +43,6 @@ int main(int argc, char* argv[]) {
   final.print();
   std::cout << "Program execution time: " << std::to_string(totalTime.count() * 1e-9) + " seconds\n";
 
-  // Generating output file with results for GREEDY
   std::vector<std::string> problemFiles {"input/max_div_15_2.txt", 
                                          "input/max_div_20_2.txt",
                                          "input/max_div_30_2.txt",
@@ -58,6 +50,8 @@ int main(int argc, char* argv[]) {
                                          "input/max_div_20_3.txt",
                                          "input/max_div_30_3.txt"
                                       };
+
+  // Generating output file with results for GREEDY
   std::ofstream outputFile;
   outputFile.open("greedy-results.csv");
   outputFile << "Problema, n, K, m, z, S, CPU" << std::endl;
@@ -93,9 +87,39 @@ int main(int argc, char* argv[]) {
       std::string cpuTime = std::to_string(totalTime.count() * 1e-9) + " seconds\n";
       outputFile2 << problemFiles[i] << ", " << aux2.getNumberOfElementsN() << ", "; 
       outputFile2 << aux2.getDimensionK() << ", " << m << ", " << finalSolution.getZ();
-      outputFile2 << ", " << finalSolution.printFile() << ", " << cpuTime << std::endl;
+      outputFile2 << ", " << finalSolution.printFile() << ", " << cpuTime;
     }
-  }*/
+  }
+
+  // ---------------------------------------- Second week assignment --------------------------//
+  GRASP* grasp = new GRASP;
+  std::cout << "GRASP: \n";
+  srand(time(NULL));
+  grasp->setK();
+  executionTime = executeAndMeasureAlgorithms(problem, grasp, solutionSizeM);
+  problem.printSolution();
+  std::cout << "Program execution time: " << executionTime;
+
+  // Generating output file with results for GRASP 
+  std::ofstream outputFile3;
+  outputFile3.open("grasp-results.csv");
+  outputFile3 << "Problema, n, K, m, Iter, |LRC|, z, S, CPU" << std::endl;
+  
+  for (int i = 0; i < problemFiles.size(); i++) {
+    Problem aux(problemFiles[i]);
+    // Each m value
+    for (int m = 2; m < 6; m++) {
+      for (int k = 2; k < 4; k++) {
+        GRASP* grasp2 = new GRASP;
+        grasp2->setK(k);
+        std::string cpuTime = executeAndMeasureAlgorithms(aux, grasp2, m);
+        outputFile3 << problemFiles[i] << ", " << aux.getNumberOfElementsN() << ", "; 
+        outputFile3 << aux.getDimensionK() << ", " << m << ", Iter," << k << ", ";
+        outputFile3 << aux.getSolution().getZ() << ", " << aux.getSolution().printFile();
+        outputFile3 << ", " << cpuTime << std::endl;
+      }
+    }
+  }
 }
 
 
