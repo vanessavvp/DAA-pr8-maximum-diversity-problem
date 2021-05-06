@@ -17,23 +17,24 @@
  **/
 std::vector<Solution> InterChange::generateNeighbours(Solution generatedSolution, std::vector<Element> initialX) {
   std::vector<Solution> result;
+  std::vector<Element> aux = initialX;
 
   // Delete every element of the generated solution that are inside the initial set of elements
   std::vector<Element> solutionElements = generatedSolution.getSolution();
   for (int i = 0; i < solutionElements.size(); i++) {
-    std::vector<Element>::iterator initialXIterator = std::find(initialX.begin(), initialX.end(), solutionElements[i]);
+    std::vector<Element>::iterator initialXIterator = std::find(aux.begin(), aux.end(), solutionElements[i]);
     // Element found in the initial set
-    if (initialXIterator != initialX.end()) {
-      int position = std::distance(initialX.begin(), initialXIterator);
-      std::vector<Element>::iterator it = initialX.begin() + position;
-      initialX.erase(it);
+    if (initialXIterator != aux.end()) {
+      int position = std::distance(aux.begin(), initialXIterator);
+      std::vector<Element>::iterator it = aux.begin() + position;
+      aux.erase(it);
     }
   }
 
   // InterChange
   Solution actualSolution;
-  std::vector<Element> auxInitial = initialX;
-  for (int i = 0; i < initialX.size(); i++) {
+  std::vector<Element> auxInitial = aux;
+  for (int i = 0; i < aux.size(); i++) {
     for (int j = 0; j < solutionElements.size(); j++) {
       actualSolution = generatedSolution;
       Element tempElement = actualSolution[j];

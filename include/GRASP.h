@@ -26,15 +26,26 @@ class GRASP : public Algorithm {
   public: 
     GRASP() {};
     ~GRASP() {};
+
     void setK();
     void setK(int k);
+    void setIterations(int iterations);
+    void setLocalSearch(LocalSearch* localSearch);
+    void setStopCriteria(bool stopCriteria);
+
     int getK();
-    //bool sortBySecondDesc(const farthestElement& first, const farthestElement& second);
+    int getIterations();
+    bool getStopCriteria();
+
     std::vector<farthestElement> bestKValues(std::vector<farthestElement> distances);
+    Solution constructivePhase(Problem problem, int solutionSizeM);
     Solution execute(Problem problem, int solutionSizeM);
 
   private:
     int k_;
+    int iterations_;
+    bool stopCriteria_;
+    LocalSearch* localSearch_;
 };
 
 #endif // !GRASP_H

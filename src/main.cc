@@ -93,30 +93,45 @@ int main(int argc, char* argv[]) {
 
   // ---------------------------------------- Second week assignment --------------------------//
   GRASP* grasp = new GRASP;
+  InterChange* interChange2 = new InterChange;
   std::cout << "GRASP: \n";
   srand(time(NULL));
-  grasp->setK();
+  grasp->setLocalSearch(interChange2);
+  grasp->setStopCriteria(true);
+  grasp->setIterations(10);
+  grasp->setK(2);
   executionTime = executeAndMeasureAlgorithms(problem, grasp, solutionSizeM);
   problem.printSolution();
   std::cout << "Program execution time: " << executionTime;
 
+
   // Generating output file with results for GRASP 
   std::ofstream outputFile3;
   outputFile3.open("grasp-results.csv");
-  outputFile3 << "Problema, n, K, m, Iter, |LRC|, z, S, CPU" << std::endl;
+  outputFile3 << "Problema, n, K, m, Iter, |LRC|, z, stop criteria, S, CPU" << std::endl;
+
   
   for (int i = 0; i < problemFiles.size(); i++) {
-    Problem aux(problemFiles[i]);
-    // Each m value
+    Problem thirdProblem(problemFiles[i]);
+    GRASP* secondGRASP = new GRASP;
+    InterChange* interChange3 = new InterChange;
+    secondGRASP->setLocalSearch(interChange3);
     for (int m = 2; m < 6; m++) {
-      for (int k = 2; k < 4; k++) {
-        GRASP* grasp2 = new GRASP;
-        grasp2->setK(k);
-        std::string cpuTime = executeAndMeasureAlgorithms(aux, grasp2, m);
-        outputFile3 << problemFiles[i] << ", " << aux.getNumberOfElementsN() << ", "; 
-        outputFile3 << aux.getDimensionK() << ", " << m << ", Iter," << k << ", ";
-        outputFile3 << aux.getSolution().getZ() << ", " << aux.getSolution().printFile();
-        outputFile3 << ", " << cpuTime << std::endl;
+      for (int it = 10; it <= 20; it += 10) {
+        secondGRASP->setIterations(it);
+        for (int k = 2; k < 4; k++) {
+          secondGRASP->setK(k);
+          for (int stopCriteria = 0; stopCriteria < 2; stopCriteria++) {
+            secondGRASP->setStopCriteria((bool)stopCriteria);
+            std::string cpuTime = executeAndMeasureAlgorithms(thirdProblem, secondGRASP, m);
+            outputFile3 << problemFiles[i] << ", " << thirdProblem.getNumberOfElementsN() << ", "; 
+            outputFile3 << thirdProblem.getDimensionK() << ", " << m << ", " << secondGRASP->getIterations();
+            outputFile3 << ", " << secondGRASP->getK() << ", " << thirdProblem.getSolution().getZ() << ", ";
+            outputFile3 << std::boolalpha << secondGRASP->getStopCriteria() << ", " << thirdProblem.getSolution().printFile();
+            outputFile3 << ", " << cpuTime << std::endl;
+            // outputFile3 << std::endl;
+          }
+        }
       }
     }
   }

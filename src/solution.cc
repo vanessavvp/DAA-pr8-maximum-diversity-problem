@@ -12,6 +12,12 @@
 #include "../include/solution.h"
 
 
+Solution::Solution(int dimensionK, int numberOfElementsN) {
+  dimensionK_ = dimensionK;
+  numberOfElementsN_ = numberOfElementsN;
+}
+
+
 int Solution::size() {
   return solution_.size();
 }
