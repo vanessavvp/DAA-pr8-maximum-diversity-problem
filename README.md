@@ -1,1 +1,0 @@
-# Práctica 8: Entrega 2 - Maximum Diversity Problem

@@ -89,3 +89,9 @@ Element& Solution::operator[](int index) {
   }
   return solution_[index];
 }
+
+
+void Solution::resize(int size) {
+  solution_.resize(size);
+}
+

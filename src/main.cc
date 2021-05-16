@@ -13,9 +13,9 @@
 #include "../include/greedy.h"
 #include "../include/GRASP.h"
 #include "../include/interChange.h"
+#include "../include/branchAndBound.h"
 
 #include <chrono>
-
 
 std::string executeAndMeasureAlgorithms(Problem& problem, Algorithm* algorithm, int m);
 
@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
   Problem problem(fileName);
 
   // ---------------------------- First week assignment ----------------------------------------- //
-  int solutionSizeM = 2;
+  /*int solutionSizeM = 2;
   Greedy* greedy = new Greedy;
   std::cout << "Greedy: \n";
   std::string executionTime = executeAndMeasureAlgorithms(problem, greedy, solutionSizeM);
@@ -65,10 +65,10 @@ int main(int argc, char* argv[]) {
       outputFile << aux.getDimensionK() << ", " << m << ", " << aux.getSolution().getZ();
       outputFile << ", " << aux.getSolution().printFile() << ", " << cpuTime << std::endl;
     }
-  }
+  }*/
 
   // Generating output file with results for LOCAL SEARCH
-  std::cout << std::endl;
+  /*std::cout << std::endl;
   std::ofstream outputFile2;
   outputFile2.open("local-search-results.csv");
   outputFile2 << "Problema, n, K, m, z, S, CPU" << std::endl;
@@ -89,10 +89,10 @@ int main(int argc, char* argv[]) {
       outputFile2 << aux2.getDimensionK() << ", " << m << ", " << finalSolution.getZ();
       outputFile2 << ", " << finalSolution.printFile() << ", " << cpuTime;
     }
-  }
+  }*/
 
   // ---------------------------------------- Second week assignment --------------------------//
-  GRASP* grasp = new GRASP;
+  /*GRASP* grasp = new GRASP;
   InterChange* interChange2 = new InterChange;
   std::cout << "GRASP: \n";
   srand(time(NULL));
@@ -102,11 +102,11 @@ int main(int argc, char* argv[]) {
   grasp->setK(2);
   executionTime = executeAndMeasureAlgorithms(problem, grasp, solutionSizeM);
   problem.printSolution();
-  std::cout << "Program execution time: " << executionTime;
+  std::cout << "Program execution time: " << executionTime;*/
 
 
   // Generating output file with results for GRASP 
-  std::ofstream outputFile3;
+  /*std::ofstream outputFile3;
   outputFile3.open("grasp-results.csv");
   outputFile3 << "Problema, n, K, m, Iter, |LRC|, stop criteria, z, S, CPU" << std::endl;
 
@@ -133,7 +133,13 @@ int main(int argc, char* argv[]) {
         }
       }
     }
-  }
+  }*/
+
+  // ---------------------------------------- Third week assignment --------------------------//
+  BranchAndBound* branchAndBound = new BranchAndBound();
+  Greedy* greedy4 = new Greedy(); 
+  branchAndBound->setAlgorithm(greedy4);
+  executeAndMeasureAlgorithms(problem, branchAndBound, 2);
 }
 
 

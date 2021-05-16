@@ -44,7 +44,7 @@ class GRASP : public Algorithm {
   private:
     int k_;
     int iterations_;
-    bool stopCriteria_;
+    bool iterationsWithImprovement_;
     LocalSearch* localSearch_;
 };
 

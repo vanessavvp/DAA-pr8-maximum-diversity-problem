@@ -39,12 +39,12 @@ int GRASP::getIterations() {
 
 
 void GRASP::setStopCriteria(bool stopCriteria) {
-  stopCriteria_ = stopCriteria;
+  iterationsWithImprovement_ = stopCriteria;
 }
 
 
 bool GRASP::getStopCriteria() {
-  return stopCriteria_;
+  return iterationsWithImprovement_;
 }
 
 
@@ -114,15 +114,15 @@ Solution GRASP::execute(Problem problem, int solutionSizeM) {
     actualSolution = localSearch_->execute(actualSolution, problem.getInitialX());
     if (actualSolution.getZ() > bestSolution.getZ()) {
       bestSolution = actualSolution;
-      if (stopCriteria_ == true) {
+      if (iterationsWithImprovement_ == true) {
         iterations = 0;
       }
     } else {
-      if (stopCriteria_ == true) {
+      if (iterationsWithImprovement_ == true) {
         iterations++;
       }
     }
-    if (stopCriteria_ == false) {
+    if (iterationsWithImprovement_ == false) {
       iterations++;
     }
     actualSolution = constructivePhase(problem, solutionSizeM);
