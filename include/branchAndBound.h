@@ -27,12 +27,15 @@ class BranchAndBound : public Algorithm {
   public:
     BranchAndBound() {}
     void setAlgorithm(Algorithm* initialSolutionAlgorithm);
+    int getAmountOfNodes();
     std::vector<Node<Solution>> generateLeaf(Problem problem, Solution parent, int depth, int solutionSizeM);
     Solution generateBestSolution(std::vector<Element> initialX, Solution selectedElement, int solutionSizeM);
     Solution execute(Problem problem, int solutionSizeM);
 
   private:
     Algorithm* otherAlgorithm_;
+    int amountOfNodes_;
+    std::vector<Node<Solution>> activeNodes_;
 };
 
 #endif // !BRANCH_AND_BOUND_H

@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
   auto totalTime = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
   std::cout << "\nLocalSearch: \n";
   final.print();
-  std::cout << "Program execution time: " << std::to_string(totalTime.count() * 1e-9) + " seconds\n";
+  std::cout << "Program execution time: " << std::to_string(totalTime.count() * 1e-9) + " seconds\n";*/
 
   std::vector<std::string> problemFiles {"input/max_div_15_2.txt", 
                                          "input/max_div_20_2.txt",
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
                                          "input/max_div_30_3.txt"
                                       };
 
-  // Generating output file with results for GREEDY
+  /*// Generating output file with results for GREEDY
   std::ofstream outputFile;
   outputFile.open("greedy-results.csv");
   outputFile << "Problema, n, K, m, z, S, CPU" << std::endl;
@@ -139,7 +139,25 @@ int main(int argc, char* argv[]) {
   BranchAndBound* branchAndBound = new BranchAndBound();
   Greedy* greedy4 = new Greedy(); 
   branchAndBound->setAlgorithm(greedy4);
-  executeAndMeasureAlgorithms(problem, branchAndBound, 2);
+  executeAndMeasureAlgorithms(problem, branchAndBound, 4);
+
+  std::ofstream outputFile4;
+  outputFile4.open("branch-bound-results.csv");
+  outputFile4 << "Problema, n, K, m, z, S, CPU, nodos generados" << std::endl;
+  
+  /*for (int i = 0; i < problemFiles.size(); i++) {
+    Problem fourthProblem(problemFiles[i]);
+    BranchAndBound* branchAndBound = new BranchAndBound;
+    Greedy* greedy4 = new Greedy; 
+    branchAndBound->setAlgorithm(greedy4);
+    for (int m = 2; m < 6; m++) {
+      std::string cpuTime = executeAndMeasureAlgorithms(fourthProblem, branchAndBound, m);
+      outputFile4 << problemFiles[i] << ", " << fourthProblem.getNumberOfElementsN() << ", ";
+      outputFile4 << fourthProblem.getDimensionK() << m << ", " << fourthProblem.getSolution().getZ();
+      //outputFile4 << ", " << fourthProblem.getSolution().printFile() << ", " << cpuTime << ", ";
+      //outputFile4 << branchAndBound->getAmountOfNodes();
+    }
+  }*/
 }
 
 
