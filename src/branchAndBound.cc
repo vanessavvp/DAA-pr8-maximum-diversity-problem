@@ -11,8 +11,21 @@
 
 #include "../include/branchAndBound.h"
 
+
+BranchAndBound::BranchAndBound(Algorithm* initialSolutionAlgorithm) {
+  otherAlgorithm_ = initialSolutionAlgorithm;
+  amountOfNodes_ = 1;
+  option_ = 0;
+}
+
+
 void BranchAndBound::setAlgorithm(Algorithm* initialSolutionAlgorithm) {
   otherAlgorithm_ = initialSolutionAlgorithm;
+}
+
+
+void BranchAndBound::setOption(int option) {
+  option_ = option;
 }
 
 
@@ -21,85 +34,74 @@ int BranchAndBound::getAmountOfNodes() {
 }
 
 
-/*
-bool sortByObjectiveFunction(std::pair<int, Solution> &a, std::pair<int, Solution> &b) {
-  return (a.second.evaluateObjectiveFunction() > b.second.evaluateObjectiveFunction());
+bool sortByZ(const Node<Solution>& a, const Node<Solution>& b) {
+  return (a.getSolution().getZ() < b.getSolution().getZ());
 }
 
-bool sortByDepth(std::pair<int, Solution> &a, std::pair<int, Solution> &b) {
-  return (a.first < b.first);
+
+bool sortByDepth(const Node<Solution>& a, const Node<Solution>& b) {
+  return (a.getDepth() < b.getDepth());
 }
-.
-.
-void BranchAndBound::sortByStrategy(std::vector<std::pair<int, Solution>>& activeNodes_) {
-  // strategy 1 = node with smallest objective function value
-  if (strategy_ == 1) {
-    std::sort(activeNodes_.begin(), activeNodes_.end(), sortByObjectiveFunction);
-  //strategy 2 = deepest node
-  } else if (strategy_ == 2) {
-    std::sort(activeNodes_.begin(), activeNodes_.end(), sortByDepth);
+
+
+std::vector<Node<Solution>> BranchAndBound::sortByOption(std::vector<Node<Solution>>& activeNodes) {
+  if (option_ == 0) { // SmallestZ
+    std::sort(activeNodes.begin(), activeNodes.end(), sortByZ);
+  } else if (option_ == 1) { // Deeper
+    std::sort(activeNodes.begin(), activeNodes.end(), sortByDepth);
   }
-}*/
+  return activeNodes;
+}
+
 
 Solution BranchAndBound::execute(Problem problem, int solutionSizeM) {
   // Generate the initial lower bound from Greedy or GRASP algorithms settled before
-  Solution initialSolution = otherAlgorithm_->execute(problem, solutionSizeM);
-  Node<Solution> node(initialSolution, 0);
-  activeNodes_.push_back(node);
-  float lowerBound = initialSolution.getZ();
-  amountOfNodes_ = 1;
-
+  Solution lowerBound = otherAlgorithm_->execute(problem, solutionSizeM);
+  Node<Solution> node(lowerBound, 0);
   // Create a set of active nodes to be expanded
-  // DEPTH = 0, because is the first iteration and none of the coordinates are permanent
+  activeNodes_.push_back(node);
+  amountOfNodes_ = 1;
   Node<Solution> actualNode = activeNodes_[0];
-  double min = actualNode.getSolution().getZ();
-  int minPos = 0;
+
+  // Active nodes to be verified by its upper bound and that could be expanded
   while (activeNodes_.size() > 0) {
-    for (int i = 0; i < activeNodes_.size(); i++) {
-      if (activeNodes_[i].getSolution().getZ() < min) {
-        min = activeNodes_[i].getSolution().getZ();
-        minPos = i;
-      }
-      actualNode = activeNodes_[minPos];
-    }
+    sortByOption(activeNodes_);
+    actualNode = activeNodes_[activeNodes_.size() - 1];
+
+    // The actual node can continue to expand
     while (actualNode.getDepth() < solutionSizeM) {
-      std::vector<Node<Solution>> nodes = generateLeaf(problem, initialSolution, actualNode.getDepth(), solutionSizeM);
+      std::vector<Node<Solution>> nodes = generateLeaf(problem, lowerBound, actualNode.getDepth(), solutionSizeM);
       std::vector<Node<Solution>>::iterator activeNodes_It = std::find(activeNodes_.begin(), activeNodes_.end(), actualNode);
       activeNodes_.erase(activeNodes_It);
+      sortByOption(nodes);
       for (int i = 0; i < nodes.size(); i++) {
         activeNodes_.push_back(nodes[i]);
+        amountOfNodes_ += 1;
       }
-      amountOfNodes_ += activeNodes_.size();
+
       //Best of the leafs
-      for (int i = 0; i < activeNodes_.size(); i++) {
-        if (activeNodes_[i].getSolution().getZ() < min) {
-          min = activeNodes_[i].getSolution().getZ();
-          minPos = i;
-        }
-        actualNode = activeNodes_[minPos];
-      }
+      actualNode = activeNodes_[activeNodes_.size() - 1];
     }
     // Calculate z
     double actualNodeZ = actualNode.getSolution().getZ();
-    if (actualNodeZ > lowerBound) {
-      lowerBound = actualNodeZ;
+    if (actualNodeZ > lowerBound.getZ()) {
+      lowerBound = actualNode.getSolution();
     }
-    int i = 0;
-    while (i < activeNodes_.size()) {
-      if (activeNodes_[i].getSolution().getZ() <= lowerBound) {
-        //std::cout << "Z " << activeNodes_[i].getSolution().getZ() << " LOWER " << lowerBound << std::endl;
-        std::vector<Node<Solution>>::iterator activeNodes_It = activeNodes_.begin(); // + i;//std::find(activeNodes_.begin(), activeNodes_.end(), activeNodes_[i]);
+    for (int i = 0; i < activeNodes_.size(); i++) {
+      if (activeNodes_[i].getSolution().getZ() <= lowerBound.getZ()) {
+        std::vector<Node<Solution>>::iterator activeNodes_It = std::find(activeNodes_.begin(), activeNodes_.end(), activeNodes_[i]);
         activeNodes_.erase(activeNodes_It);
         i--;
       }
-      i++;
     }
   }
-  //actualNode.getSolution().print();
-  return actualNode.getSolution();
+  return lowerBound;
 }
 
-
+/**
+ * Generates every leaf/children of a parent node, advancing through each of its  branches and, depending on the depth, setting
+ * elements to obtain all possible combinations
+ **/
 std::vector<Node<Solution>> BranchAndBound::generateLeaf(Problem problem, Solution parent, int depth, int solutionSizeM) {
   std::vector<Node<Solution>> children;
   Solution selectedElement;

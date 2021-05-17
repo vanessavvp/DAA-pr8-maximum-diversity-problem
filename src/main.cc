@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
   Problem problem(fileName);
 
   // ---------------------------- First week assignment ----------------------------------------- //
-  /*int solutionSizeM = 2;
+  int solutionSizeM = 2;
   Greedy* greedy = new Greedy;
   std::cout << "Greedy: \n";
   std::string executionTime = executeAndMeasureAlgorithms(problem, greedy, solutionSizeM);
@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
   auto totalTime = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
   std::cout << "\nLocalSearch: \n";
   final.print();
-  std::cout << "Program execution time: " << std::to_string(totalTime.count() * 1e-9) + " seconds\n";*/
+  std::cout << "Program execution time: " << std::to_string(totalTime.count() * 1e-9) + " seconds\n";
 
   std::vector<std::string> problemFiles {"input/max_div_15_2.txt", 
                                          "input/max_div_20_2.txt",
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
                                          "input/max_div_30_3.txt"
                                       };
 
-  /*// Generating output file with results for GREEDY
+  // Generating output file with results for GREEDY
   std::ofstream outputFile;
   outputFile.open("greedy-results.csv");
   outputFile << "Problema, n, K, m, z, S, CPU" << std::endl;
@@ -65,10 +65,10 @@ int main(int argc, char* argv[]) {
       outputFile << aux.getDimensionK() << ", " << m << ", " << aux.getSolution().getZ();
       outputFile << ", " << aux.getSolution().printFile() << ", " << cpuTime << std::endl;
     }
-  }*/
+  }
 
   // Generating output file with results for LOCAL SEARCH
-  /*std::cout << std::endl;
+  std::cout << std::endl;
   std::ofstream outputFile2;
   outputFile2.open("local-search-results.csv");
   outputFile2 << "Problema, n, K, m, z, S, CPU" << std::endl;
@@ -89,10 +89,10 @@ int main(int argc, char* argv[]) {
       outputFile2 << aux2.getDimensionK() << ", " << m << ", " << finalSolution.getZ();
       outputFile2 << ", " << finalSolution.printFile() << ", " << cpuTime;
     }
-  }*/
+  }
 
   // ---------------------------------------- Second week assignment --------------------------//
-  /*GRASP* grasp = new GRASP;
+  GRASP* grasp = new GRASP;
   InterChange* interChange2 = new InterChange;
   std::cout << "GRASP: \n";
   srand(time(NULL));
@@ -102,11 +102,11 @@ int main(int argc, char* argv[]) {
   grasp->setK(2);
   executionTime = executeAndMeasureAlgorithms(problem, grasp, solutionSizeM);
   problem.printSolution();
-  std::cout << "Program execution time: " << executionTime;*/
+  std::cout << "Program execution time: " << executionTime;
 
 
   // Generating output file with results for GRASP 
-  /*std::ofstream outputFile3;
+  std::ofstream outputFile3;
   outputFile3.open("grasp-results.csv");
   outputFile3 << "Problema, n, K, m, Iter, |LRC|, stop criteria, z, S, CPU" << std::endl;
 
@@ -133,34 +133,74 @@ int main(int argc, char* argv[]) {
         }
       }
     }
-  }*/
+  }
 
   // ---------------------------------------- Third week assignment --------------------------//
-  BranchAndBound* branchAndBound = new BranchAndBound();
-  Greedy* greedy4 = new Greedy(); 
-  branchAndBound->setAlgorithm(greedy4);
-  executeAndMeasureAlgorithms(problem, branchAndBound, 4);
+  std::cout << "\nBranchAndBound:" << std::endl;
+  /*Greedy* greedy4 = new Greedy; 
+  BranchAndBound* branchAndBound = new BranchAndBound(greedy4);
+  branchAndBound->setOption("smallestZ");
+  problem.setAlgorithm(branchAndBound);
+  problem.execute(2);
+  problem.printSolution();
+  //executeAndMeasureAlgorithms(problem, branchAndBound, 2);*/
+
 
   std::ofstream outputFile4;
-  outputFile4.open("branch-bound-results.csv");
-  outputFile4 << "Problema, n, K, m, z, S, CPU, nodos generados" << std::endl;
+  outputFile4.open("branch-bound-greedy-results.csv");
+  outputFile4 << "Problema, LesserZ/Deeper, n, K, m, z, S, CPU, nodos generados" << std::endl;
   
-  /*for (int i = 0; i < problemFiles.size(); i++) {
+  for (int i = 0; i < problemFiles.size(); i++) {
     Problem fourthProblem(problemFiles[i]);
-    BranchAndBound* branchAndBound = new BranchAndBound;
     Greedy* greedy4 = new Greedy; 
-    branchAndBound->setAlgorithm(greedy4);
-    for (int m = 2; m < 6; m++) {
-      std::string cpuTime = executeAndMeasureAlgorithms(fourthProblem, branchAndBound, m);
-      outputFile4 << problemFiles[i] << ", " << fourthProblem.getNumberOfElementsN() << ", ";
-      outputFile4 << fourthProblem.getDimensionK() << m << ", " << fourthProblem.getSolution().getZ();
-      //outputFile4 << ", " << fourthProblem.getSolution().printFile() << ", " << cpuTime << ", ";
-      //outputFile4 << branchAndBound->getAmountOfNodes();
+    BranchAndBound* branchAndBound = new BranchAndBound(greedy4);
+    for (int option = 0; option < 2; option++) {
+      branchAndBound->setOption(option);
+      for (int m = 2; m < 6; m++) {
+        std::string cpuTime = executeAndMeasureAlgorithms(fourthProblem, branchAndBound, m);
+        outputFile4 << problemFiles[i] << ", " << option << ", " << fourthProblem.getNumberOfElementsN() << ", ";
+        outputFile4 << fourthProblem.getDimensionK() << ", " << m << ", " << fourthProblem.getSolution().getZ();
+        outputFile4 << ", " << fourthProblem.getSolution().printFile() << ", " << cpuTime << ", ";
+        outputFile4 << branchAndBound->getAmountOfNodes() << std::endl;
+      }
     }
-  }*/
+  }
+
+
+  std::ofstream outputFile5;
+  outputFile5.open("branch-bound-GRASP-results.csv");
+  outputFile5 << "Problema, LesserZ/Deeper, n, K, m, z, S, CPU, nodos generados" << std::endl;
+
+  for (int i = 0; i < problemFiles.size(); i++) {
+    Problem problem(problemFiles[i]);
+    GRASP* grasp = new GRASP;
+    InterChange* interchange = new InterChange;
+    grasp->setLocalSearch(interchange);
+    BranchAndBound* branchAndBound = new BranchAndBound(grasp);
+    for (int option = 0; option < 2; option++) {
+      branchAndBound->setOption(option);
+      bool iterations = false;
+      int it = 10;
+      int k = 2;
+      for (int m = 2; m < 6; m++) {
+        grasp->setIterations(it);
+        grasp->setK(k);
+        grasp->setStopCriteria(iterations);
+        std::string cpuTime = executeAndMeasureAlgorithms(problem, branchAndBound, m);
+        outputFile5 << problemFiles[i] << ", " << option << ", " << problem.getNumberOfElementsN() << ", "; 
+        outputFile5 << problem.getDimensionK() << ", " << m << ", " << problem.getSolution().getZ();
+        outputFile5 << ", " << problem.getSolution().printFile() << ", " << cpuTime;
+        outputFile5 << ", " << branchAndBound->getAmountOfNodes() << std::endl;
+      }
+    }
+  }
 }
 
 
+/**
+ * Sets the algorithm to be executed from a given problem and solution size m, for it to be executed and measure
+ * it execution time
+ **/
 std::string executeAndMeasureAlgorithms(Problem& problem, Algorithm* algorithm, int m) {
   std::string string;
   problem.setAlgorithm(algorithm);

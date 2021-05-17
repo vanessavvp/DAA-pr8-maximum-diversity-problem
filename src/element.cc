@@ -28,6 +28,9 @@ int Element::getDimensionK() const {
 }
 
 
+/**
+ * Adds a new coordinate to the element while it remains within the k-dimension
+ **/
 void Element::addCoordinate(double newCoordinate) {
   if (coordinates_.size() < dimensionK_) {
     coordinates_.push_back(newCoordinate);

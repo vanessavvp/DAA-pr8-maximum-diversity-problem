@@ -11,6 +11,10 @@
 
 #include "../include/algorithm.h"
 
+
+/** 
+ * Calculates the gravity center for a given set of elements.
+ **/
 Element Algorithm::calculateGravityCenter(std::vector<Element> elements) {
   double result = 0.0;
   Element newElement(elements[0].getDimensionK());
