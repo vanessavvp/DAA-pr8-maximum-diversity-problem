@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
       std::string cpuTime = executeAndMeasureAlgorithms(aux, greedy2, m);
       outputFile << problemFiles[i] << ", " << aux.getNumberOfElementsN() << ", "; 
       outputFile << aux.getDimensionK() << ", " << m << ", " << aux.getSolution().getZ();
-      outputFile << ", " << aux.getSolution().printFile() << ", " << cpuTime << std::endl;
+      outputFile << ", " << aux.getSolution().printFile() << ", " << cpuTime;
     }
   }
 
@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
   // Generating output file with results for GRASP 
   std::ofstream outputFile3;
   outputFile3.open("grasp-results.csv");
-  outputFile3 << "Problema, n, K, m, Iter, |LRC|, stop criteria, z, S, CPU" << std::endl;
+  outputFile3 << "Problema, n, K, m, Iter, |LRC|, iterations with improvement, z, S, CPU" << std::endl;
 
   
   for (int i = 0; i < problemFiles.size(); i++) {
@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
             outputFile3 << thirdProblem.getDimensionK() << ", " << m << ", " << secondGRASP->getIterations();
             outputFile3 << ", " << secondGRASP->getK() << ", " <<  std::boolalpha << secondGRASP->getStopCriteria();
             outputFile3 << ", " <<thirdProblem.getSolution().getZ() << ", "<< thirdProblem.getSolution().printFile();
-            outputFile3 << ", " << cpuTime << std::endl;
+            outputFile3 << ", " << cpuTime;
           }
         }
       }
@@ -189,7 +189,7 @@ int main(int argc, char* argv[]) {
         std::string cpuTime = executeAndMeasureAlgorithms(problem, branchAndBound, m);
         outputFile5 << problemFiles[i] << ", " << option << ", " << problem.getNumberOfElementsN() << ", "; 
         outputFile5 << problem.getDimensionK() << ", " << m << ", " << problem.getSolution().getZ();
-        outputFile5 << ", " << problem.getSolution().printFile() << ", " << cpuTime;
+        outputFile5 << ", " << problem.getSolution().printFile() << ", " << cpuTime; 
         outputFile5 << ", " << branchAndBound->getAmountOfNodes() << std::endl;
       }
     }
